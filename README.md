@@ -78,25 +78,6 @@ image2text/
 └── media/                        # Temporary uploaded files (auto-generated)
 ```
 
----
-
-# Media folder for temp image storage
-MEDIA_ROOT = BASE_DIR / 'media'
-MEDIA_URL = '/media/'
-
-# Debug mode (disable in production)
-DEBUG = False
-```
-
-### Allowed Hosts (for deployment)
-Edit `image2text/settings.py`:
-```python
-ALLOWED_HOSTS = ['https://free-img-txt.onrender.com/', '*']
-```
-
----
-
-
 
 ### ✅ Already Deployed on Render (Live)
 
