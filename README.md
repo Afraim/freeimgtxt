@@ -7,6 +7,8 @@
 
 A fast, free, and easy-to-use **OCR (Optical Character Recognition)** web application that extracts text from images instantly. Upload, drag & drop, or paste images directly—no sign-ups or API keys required.
 
+**🌐 Live Demo:** https://free-img-txt.onrender.com/
+
 ## 🎯 Features
 
 - **Multiple Input Methods**
@@ -74,6 +76,14 @@ python manage.py runserver
 ```
 
 Open browser: **http://127.0.0.1:8000/**
+
+## 🌐 Deploy to Production
+
+The app is **live and running** on Render:
+
+**👉 Visit:** https://free-img-txt.onrender.com/
+
+Deployed using Docker + Tesseract OCR on Render's free tier. See deployment section below for setup instructions.
 
 ---
 
@@ -241,35 +251,53 @@ http://127.0.0.1:8000/
 
 ## 🌐 Deployment Guide
 
-### Deploy to Render (Recommended — Free)
+### ✅ Already Deployed on Render (Live)
 
-1. **Push to GitHub**
+The app is **live at:** https://free-img-txt.onrender.com/
+
+**Setup details (for reference or your own deployment):**
+
+### Deploy to Render (Step-by-Step)
+
+1. **Push to GitHub** (your repo)
    ```bash
    git init
    git add .
    git commit -m "Initial commit"
-   git remote add origin https://github.com/Afraim/freeimgtxt.git
+   git remote add origin https://github.com/yourusername/your-repo.git
    git push -u origin main
    ```
 
-2. **Create Render Account** — https://render.com (free)
+2. **Create Render Account** — https://render.com (free tier available)
 
-3. **Connect GitHub Repo**
-   - New → Web Service
-   - Connect GitHub account
-   - Select `image2text` repo
-   - Build Command: `pip install -r requirements.txt`
-   - Start Command: `gunicorn image2text.wsgi:application`
+3. **Create a New Web Service**
+   - Go to Render Dashboard → New → Web Service
+   - Connect your GitHub repo
+   - Select the repo and `main` branch
+   - **Important:** Under Runtime/Environment, select **Docker** (not Python)
+   - Leave Build and Start commands blank — the Dockerfile will handle it
+   - Create the service → Manual Deploy
 
-4. **Environment Variables** (in Render dashboard)
+4. **Dockerfile Auto-Install**
+   - Render will detect the `Dockerfile` in the repo root
+   - Docker build installs `tesseract-ocr` + Python dependencies
+   - No manual apt-get needed
+
+5. **Environment Variables** (optional)
    ```
-   PYTHON_VERSION=3.11
    DEBUG=False
-   SECRET_KEY=your-random-key-here
+   SECRET_KEY=your-random-secret-key-here
    ```
 
-5. **Deploy** — Render builds & deploys automatically
-   - URL: `https://your-project-name.onrender.com`
+6. **Deploy** — Render builds the image and starts your service
+   - URL: `https://your-service-name.onrender.com/`
+
+### Why Docker?
+- System packages (like Tesseract OCR) must be installed at image build time.
+- Render's native Python builder doesn't allow `apt-get` in the build command (permission issues).
+- Using a Dockerfile gives full control: install Tesseract, Python deps, migrations, and static files all in one container.
+
+---
 
 ### Deploy to PythonAnywhere (Easy Alternative)
 
