@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Image to Text</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .drop-area { border: 2px dashed #01b2db; border-radius: 10px; padding: 50px; text-align:center; cursor:pointer; transition:.3s; }
+    .drop-area.dragover { background:#f0f8ff; }
+    input[type=file] { display: none; }
+    #preview { max-width: 150px; max-height: 150px; margin-top: 10px; border-radius: 0px; }
+    .preview-container { text-align: center; }
+  </style>
+</head>
+<body class="bg-light">
+  <div class="container py-5">
+    <h1 class="mb-4 text-center">Image to Text Converter</h1>
+    <form method="post" enctype="multipart/form-data" class="mb-4" id="upload-form">
+      {% csrf_token %}
+      <div class="drop-area mb-3" id="drop-area">
+        <p>Drag & Drop Image Here or Click to Browse</p>
+        <p style="font-size: 0.9em; color: #666;">Or Paste Image (Ctrl+V)</p>
+        {{ form.image }}
+      </div>
+      <div class="preview-container" id="preview-container" style="display: none;">
+        <img width="150px" id="preview" alt="Preview" />
+        <p style="font-size: 0.9em; color: #28a745; margin-top: 5px;">✓ Image Ready</p>
+      </div>
+      <button class="btn btn-primary mt-3" type="submit">Convert</button>
+    </form>
+
+    {% if output_text %}
+      <div class="card p-3">
+        <h5>Extracted Text:</h5>
+        <pre>{{ output_text }}</pre>
+      </div>
+    {% endif %}
+  </div>
+
+  <script>
+    const dropArea = document.getElementById('drop-area');
+    const fileInput = document.querySelector('input[type="file"]');
+    const previewImg = document.getElementById('preview');
+    const previewContainer = document.getElementById('preview-container');
+
+    // Click to browse
+    dropArea.addEventListener('click', () => fileInput.click());
+
+    // Drag over
+    dropArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropArea.classList.add('dragover');
+    });
+
+    dropArea.addEventListener('dragleave', () => dropArea.classList.remove('dragover'));
+
+    // Drop
+    dropArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropArea.classList.remove('dragover');
+      if (e.dataTransfer.files.length) {
+        fileInput.files = e.dataTransfer.files;
+        showPreview(e.dataTransfer.files[0]);
+      }
+    });
+
+    // File input change (browse)
+    fileInput.addEventListener('change', (e) => {
+      if (e.target.files.length) {
+        showPreview(e.target.files[0]);
+      }
+    });
+
+    // Paste from clipboard
+    document.addEventListener('paste', (e) => {
+      if (e.clipboardData.items.length === 0) return;
+      for (let item of e.clipboardData.items) {
+        if (item.type.startsWith('image/')) {
+          e.preventDefault();
+          const file = item.getAsFile();
+          const dt = new DataTransfer();
+          dt.items.add(file);
+          fileInput.files = dt.files;
+          showPreview(file);
+          break;
+        }
+      }
+    });
+
+    // Show preview
+    function showPreview(file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        previewImg.src = e.target.result;
+        previewContainer.style.display = 'block';
+      };
+      reader.readAsDataURL(file);
+    }
+  </script>
+</body>
+</html>
