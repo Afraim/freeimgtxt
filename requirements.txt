@@ -2,3 +2,4 @@ Django
 pillow
 pytesseract
 django-widget-tweaks
+gunicorn
