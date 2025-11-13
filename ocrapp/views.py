@@ -3,10 +3,16 @@ from .forms import ImageUploadForm
 from PIL import Image
 import pytesseract
 import os
+import sys
 from django.conf import settings
 
-# Set Tesseract path (Windows default install location)
-pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+# Set Tesseract path based on OS
+if sys.platform == 'win32':
+    # Windows default install location
+    pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+else:
+    # Linux (Render, AWS, etc.) default location
+    pytesseract.pytesseract.tesseract_cmd = '/usr/bin/tesseract'
 
 
 def index(request):
