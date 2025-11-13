@@ -31,7 +31,7 @@ A fast, free, and easy-to-use **OCR (Optical Character Recognition)** web applic
 
 ### Step 1: Clone or Download
 ```bash
-git clone https://github.com/yourusername/image2text.git
+git clone https://github.com/Afraim/freeimgtxt.git
 cd image2text
 ```
 
@@ -139,7 +139,7 @@ tesseract --version
 ### Python Setup
 ```bash
 # Clone repo
-git clone https://github.com/yourusername/image2text.git
+git clone https://github.com/Afraim/freeimgtxt.git
 cd image2text
 
 # Create virtual environment
@@ -248,7 +248,7 @@ http://127.0.0.1:8000/
    git init
    git add .
    git commit -m "Initial commit"
-   git remote add origin https://github.com/yourusername/image2text.git
+   git remote add origin https://github.com/Afraim/freeimgtxt.git
    git push -u origin main
    ```
 
@@ -279,7 +279,7 @@ http://127.0.0.1:8000/
 
 3. **Bash Console** → Clone repo:
    ```bash
-   git clone https://github.com/yourusername/image2text.git
+   git clone https://github.com/Afraim/freeimgtxt.git
    cd image2text
    ```
 
@@ -293,9 +293,9 @@ http://127.0.0.1:8000/
    - Web → Add new web app
    - Framework: Django
    - Python: 3.11
-   - Path: `/home/yourusername/image2text`
+   - Path: `/home/Afraim/image2text`
 
-6. **Deploy** — URL: `https://yourusername.pythonanywhere.com`
+6. **Deploy** — URL: `https://#`
 
 ### Security Checklist (Production)
 - [ ] Set `DEBUG = False`
@@ -441,9 +441,9 @@ Found a bug or have a feature request? Open an issue on GitHub!
 
 ## 📞 Support
 
-- **Issue Tracker:** [GitHub Issues](https://github.com/yourusername/image2text/issues)
-- **Discussions:** [GitHub Discussions](https://github.com/yourusername/image2text/discussions)
-- **Email:** your-email@example.com (optional)
+- **Issue Tracker:** [GitHub Issues](https://github.com/Afraim/image2text/issues)
+- **Discussions:** [GitHub Discussions](https://github.com/Afraim/image2text/discussions)
+- **Email:** [afraim.zahangir@gmail.com](mailto:afraim.zahangir@gmail.com)
 
 ---
 
@@ -464,6 +464,6 @@ If this project helped you, please consider giving it a ⭐ on GitHub!
 
 ---
 
-**Made with ❤️ by [Your Name]**
+**Made with ❤️ by [Afraim Zahangir]**
 
 *Last Updated: November 2025*
